@@ -6,10 +6,14 @@
 
 import Foundation
 
-struct Todo: Codable {
+struct Todo: Codable, CustomStringConvertible {
     let id: UUID
     let title: String
     var isCompleted: Bool
+
+    var description: String {
+        return "Todo: \(title) [\(isCompleted ? "✅" : "❌")]"
+    }
 }
 
 protocol Cache {
@@ -91,8 +95,7 @@ final class TodoManager {
 
     func listTodos() {
         for (index, todo) in todos.enumerated() {
-            let status = todo.isCompleted ? "✅" : "❌"
-            print("\(index): \(todo.title) [\(status)]")
+            print("\(index): \(todo)")
         }
     }
 
